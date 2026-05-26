@@ -2,7 +2,7 @@
 <html lang="en">  
 <head>  
   <meta charset="UTF-8" />  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />  
   <title>Eid Ul Adha Mubarak</title>    
   <!-- Tailwind CSS -->    
   <script src="https://cdn.tailwindcss.com"></script>    
@@ -13,7 +13,6 @@
       margin:0;  
       padding:0;  
       box-sizing:border-box;  
-      transition:all .3s ease;  
     }  
   
     html,body{  
@@ -30,18 +29,19 @@
       inset:0;  
     }  
   
-    /* Background Glow */  
+    /* Background Glow - Optimized */  
     .bg-glow{  
       position:absolute;  
-      width:600px;  
-      height:600px;  
-      background:rgba(250,204,21,0.08);  
+      width:min(600px, 90vw);  
+      height:min(600px, 90vw);  
+      background:rgba(250,204,21,0.06);  
       border-radius:50%;  
-      filter:blur(120px);  
+      filter:blur(100px);  
       top:50%;  
       left:50%;  
       transform:translate(-50%,-50%);  
       z-index:0;  
+      pointer-events: none;
     }  
   
     /* Stars */  
@@ -51,7 +51,7 @@
       height:2px;  
       background:white;  
       border-radius:50%;  
-      animation:twinkle 4s infinite;  
+      animation:twinkle 4s infinite ease-in-out;  
     }  
   
     @keyframes twinkle{  
@@ -59,7 +59,7 @@
       50%{ opacity:1; }  
     }  
   
-    /* Pages */  
+    /* Pages with Hardware Acceleration */  
     .page{  
       position:absolute;  
       inset:0;  
@@ -70,7 +70,9 @@
       align-items:center;  
       flex-direction:column;  
       padding:12px;  
-      transition:1s ease;  
+      transition:transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);  
+      will-change: transform;
+      z-index:10;
     }  
   
     #page1{ transform:translateX(0%); }  
@@ -79,24 +81,36 @@
     .slide-left{ transform:translateX(-100%) !important; }  
     .slide-center{ transform:translateX(0%) !important; }  
   
-    /* Moon */  
+    /* Fixed Moon Container */  
+    .moon-container {
+      position: absolute;
+      z-index: 20;
+      top: calc(50% - 240px); 
+      left: 50%;
+      transform: translate(-50%, 0);
+      transition: all 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+      will-change: transform, top, left;
+    }
+
     .moon{  
       position:relative;  
       width:120px;  
       height:120px;  
       border-radius:50%;  
       background:#facc15;  
-      box-shadow:0 0 60px rgba(250,204,21,0.5);  
+      box-shadow:0 0 50px rgba(250,204,21,0.4);  
       overflow:hidden;  
-      animation:float 5s ease-in-out infinite;  
     }  
   
     @media (min-width: 768px) {  
       .moon {  
         width: 160px;  
         height: 160px;  
-        box-shadow:0 0 80px rgba(250,204,21,0.5);  
+        box-shadow:0 0 70px rgba(250,204,21,0.4);  
       }  
+      .moon-container {
+        top: calc(50% - 300px);
+      }
     }  
   
     .moon::after{  
@@ -109,20 +123,31 @@
       top:0;  
       left:35px;  
     }  
-  
+
+    .moon-float {  
+      animation:float 5s ease-in-out infinite;  
+    }
+
     @keyframes float{  
-      0%,100%{ transform:translateY(0px); }  
-      50%{ transform:translateY(-15px); }  
+      0%,100%{ transform:translate(-50%, 0px); }  
+      50%{ transform:translate(-50%, -12px); }  
+    }  
+
+    /* Fly destination on Page 2 Card */
+    .moon-container.fly-to-page2 {
+      top: 20px;
+      left: 50%;
+      transform: translate(-50%, 0) scale(0.55) rotate(360deg);
+      animation: none;
     }  
   
     /* Glass */  
     .glass{  
-      background:rgba(255,255,255,0.08);  
-      backdrop-filter:blur(20px);  
+      background:rgba(255,255,255,0.06);  
+      backdrop-filter:blur(15px);  
+      -webkit-backdrop-filter:blur(15px);
       border:1px solid rgba(255,255,255,0.08);  
-      box-shadow:  
-      0 0 30px rgba(255,255,255,0.05),  
-      inset 0 0 20px rgba(255,255,255,0.03);  
+      box-shadow: 0 0 30px rgba(255,255,255,0.03);
     }  
   
     /* Footer */  
@@ -138,33 +163,33 @@
       z-index:9999;  
     }  
   
-    @media (min-width: 768px) {  
-      footer { bottom: 15px; font-size: 14px; }  
-    }  
-  
-    /* Floating */  
+    /* Floating Elements */  
     .floating{ animation:floating 4s ease-in-out infinite; }  
   
     @keyframes floating{  
       0%,100%{ transform:translateY(0px); }  
-      50%{ transform:translateY(-10px); }  
+      50%{ transform:translateY(-8px); }  
     }  
   
-    /* Sheep */  
+    /* Sheep Group Container */
+    .sheep-box {
+      position: absolute;
+      z-index: 30;
+      will-change: transform;
+    }
+
     .sheep{  
-      position:absolute;  
-      width:90px;  
-      z-index:2;  
-      pointer-events:none;  
+      width: 90px;  
+      cursor: pointer;
     }  
   
-    .sheep1{  
+    .sheep1-box{  
       bottom:90px;  
       left:-120px;  
       animation:walkSheep 8s linear infinite;  
     }  
   
-    .sheep2{  
+    .sheep2-box{  
       bottom:150px;  
       left:-200px;  
       width:70px;  
@@ -176,18 +201,112 @@
       0%{ transform:translateX(0); }  
       100%{ transform:translateX(160vw); }  
     }  
-  
-    /* Buttons */  
-    button:hover{  
-      transform:scale(1.03);  
-      box-shadow:0 0 20px rgba(250,204,21,0.2);  
+
+    /* Speech Bubble */
+    .speech-bubble {
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%) scale(0);
+      background: white;
+      color: black;
+      font-weight: bold;
+      font-family: sans-serif;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      pointer-events: none;
+    }
+
+    .speech-bubble.show-bubble {
+      transform: translateX(-50%) scale(1);
+      opacity: 1;
+    }
+
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 6px 6px 0;
+      border-style: solid;
+      border-color: white transparent;
     }  
-  
-    /* Popup */  
-    .popup-bg{  
-      background:rgba(0,0,0,0.7);  
-      backdrop-filter:blur(10px);  
-    }  
+
+    /* Scratch Card Box */
+    .scratch-container {
+      position: relative;
+      width: 100%;
+      height: 140px;
+      margin: 16px auto 0;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .scratch-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 5;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    .scratch-underlayer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+      padding: 10px;
+      opacity: 0; /* Prevents flashing glitch completely */
+      transition: opacity 0.2s ease;
+    }
+
+    /* Royal Calligraphy Badge Layout Style */
+    .royal-badge-container {
+      margin: 20px auto 10px;
+      display: inline-block;
+      opacity: 0;
+      transform: scale(0) rotate(-180deg);
+      transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .royal-badge-container.reveal-badge {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+
+    .royal-badge {
+      background: linear-gradient(135deg, rgba(20, 20, 20, 0.9), rgba(5, 5, 5, 0.95));
+      border: 2px solid #facc15;
+      box-shadow: 0 0 25px rgba(250, 204, 21, 0.3), inset 0 0 15px rgba(250, 204, 21, 0.15);
+      padding: 10px 30px;
+      border-radius: 50px;
+      position: relative;
+    }
+
+    .royal-badge::before, .royal-badge::after {
+      content: '✨';
+      position: absolute;
+      font-size: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .royal-badge::before { left: 10px; }
+    .royal-badge::after { right: 10px; }
   </style>  
 </head>  
 <body>    
@@ -205,15 +324,32 @@
     <span style="top:30%;left:10%;"></span>  
     <span style="top:15%;left:55%;"></span>  
   </div>    
+
+  <!-- GLOBAL MOON -->
+  <div id="moonWrapper" class="moon-container moon-float">
+    <div class="moon"></div>
+  </div>
   
-  <!-- Sheep -->    
-  <img src="sheep.gif" class="sheep sheep1" alt="">  
-  <img src="sheep.gif" class="sheep sheep2" alt="">    
+  <!-- Sheep Containers -->    
+  <div class="sheep-box sheep1-box" onclick="playSheepEvent(this)">
+    <div class="speech-bubble">Baaa... 🐑</div>
+    <img src="sheep.gif" class="sheep" alt="Sheep">  
+  </div>
+
+  <div class="sheep-box sheep2-box" onclick="playSheepEvent(this)">
+    <div class="speech-bubble">Baaa... 🐑</div>
+    <img src="sheep.gif" class="sheep" alt="Sheep">  
+  </div>
   
-  <!-- Audio -->    
+  <!-- Main Background Audio -->    
   <audio id="eidAudio" loop>  
     <source src="taqabbalallah.mp3" type="audio/mpeg">  
   </audio>    
+
+  <!-- Your Downloaded Sheep Sound File Support -->
+  <audio id="sheepAudio">
+    <source src="sheep.mp3" type="audio/mpeg">
+  </audio>
 
   <!-- Fixed Audio Play/Pause Button -->
   <button 
@@ -225,11 +361,11 @@
     <svg id="audioIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current text-yellow-300" viewBox="0 0 24 24">
       <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
     </svg>
-  </button>
+  </button>  
   
   <!-- PAGE 1 -->    
   <section id="page1" class="page">  
-    <div class="moon mb-6 md:mb-10"></div>  
+    <div class="h-[130px] md:h-[180px] mb-4 pointer-events-none opacity-0"></div>  
     <h1 class="text-4xl md:text-7xl font-bold text-yellow-300 text-center px-4">  
       Eid Ul Adha Mubarak  
     </h1>  
@@ -257,19 +393,25 @@
     <div id="greetingCard" class="glass p-5 md:p-14 rounded-[30px] md:rounded-[40px] max-w-3xl text-center relative overflow-hidden w-full">  
       <div class="absolute inset-0 bg-yellow-400/5 blur-3xl"></div>  
 
-      <!-- Decorations (Will be excluded in download if needed) -->  
+      <!-- Decorations -->  
       <div class="absolute top-3 left-3 md:top-5 md:left-5 text-xl md:text-3xl floating">🏮</div>  
       <div class="absolute top-6 right-5 md:top-10 md:right-8 text-lg md:text-2xl floating">✨</div>  
       <div class="absolute bottom-6 left-5 md:bottom-10 md:left-10 text-lg md:text-2xl floating">🌙</div>  
 
       <!-- Main -->  
       <div class="relative z-10">  
-        <div class="text-4xl md:text-7xl mb-3 md:mb-6 floating">🌙</div>  
+        <div class="h-14 md:h-20 opacity-0 pointer-events-none"></div>  
         <h1 class="text-2xl md:text-7xl text-yellow-300 font-bold">Eid Ul Adha Mubarak</h1>  
         <div class="w-24 md:w-40 h-[2px] md:h-1 bg-yellow-400 mx-auto rounded-full mt-3 md:mt-6"></div>  
-        <h2 id="greetingName" class="mt-4 md:mt-10 text-lg md:text-4xl font-semibold"></h2>  
         
-        <p class="mt-4 md:mt-10 text-gray-300 leading-6 md:leading-10 text-sm md:text-xl">  
+        <!-- ROYAL SHAHI BADGE -->
+        <div id="royalBadgeWrapper" class="royal-badge-container">
+          <div class="royal-badge">
+            <h2 id="greetingName" class="text-xl md:text-3xl font-bold text-yellow-300 tracking-wide"></h2>  
+          </div>
+        </div>
+        
+        <p class="mt-4 md:mt-6 text-gray-300 leading-6 md:leading-10 text-sm md:text-xl">  
           Taqabbalallahu منا ومنكم 🤍  
           <br class="hidden md:inline"><br class="hidden md:inline">  
           May Allah accept your prayers, sacrifices and duas on this beautiful Eid.  
@@ -280,7 +422,7 @@
         </p>  
 
         <!-- Dua -->  
-        <div class="mt-4 md:mt-10 glass rounded-[18px] md:rounded-[30px] p-3 md:p-6">  
+        <div class="mt-4 md:mt-8 glass rounded-[18px] md:rounded-[30px] p-3 md:p-6">  
           <p class="text-yellow-300 text-xs md:text-xl leading-relaxed md:leading-9">  
             “May this Eid bring new hopes, unforgettable memories, and countless blessings into your life.”  
           </p>  
@@ -302,21 +444,27 @@
     </div>
   </section>    
 
-  <!-- Eidi Popup -->  
+  <!-- Eidi Popup WITH SCRATCH CARD EXTENSION -->  
   <div id="eidiPopup" class="hidden fixed inset-0 popup-bg flex justify-center items-center z-[9999] px-6">    
     <div class="glass p-5 md:p-8 rounded-[24px] md:rounded-[35px] text-center max-w-xs md:max-w-md w-full relative overflow-hidden">  
       <div class="absolute inset-0 bg-green-400/10 blur-3xl"></div>  
       <div class="relative z-10">  
-        <div class="text-5xl md:text-7xl mb-3 md:mb-5 floating">💸</div>  
-        <h1 class="text-2xl md:text-4xl text-green-400 font-bold">Eidi Received!</h1>  
-        <p id="eidiAmount" class="mt-4 md:mt-6 text-3xl md:text-5xl font-bold text-yellow-300">₹500</p>  
-        <p class="mt-3 md:mt-6 text-gray-300 leading-relaxed text-sm md:text-base">  
-          Mubarak 😄<br>Spend your Eidi wisely ✨  
-        </p>  
-        <div class="mt-4 md:mt-6 glass rounded-xl p-3 md:p-4">  
+        <div class="text-5xl md:text-7xl mb-2 md:mb-4 floating">💸</div>  
+        <h1 class="text-2xl md:text-4xl text-green-400 font-bold">Your Eidi Box</h1>  
+        
+        <!-- Interactive Scratch Container Area -->
+        <div class="scratch-container border border-white/10">
+          <div id="scratchUnderlayer" class="scratch-underlayer">
+            <p id="eidiAmount" class="text-2xl md:text-4xl font-bold text-yellow-300 tracking-wide px-2 text-center leading-tight"></p>  
+            <p id="eidiMessage" class="mt-2 text-gray-300 leading-relaxed text-xs md:text-sm text-center"></p> 
+          </div>
+          <canvas id="scratchCanvas" class="scratch-canvas"></canvas>
+        </div>
+
+        <div class="mt-5 md:mt-6 glass rounded-xl p-3 md:p-4">  
           <p class="text-yellow-300 text-sm md:text-lg">Eidi from Moomin 🤍</p>  
         </div>  
-        <button onclick="closeEidi()" class="mt-6 md:mt-8 bg-yellow-400 text-black py-3 md:py-4 w-full rounded-xl md:rounded-2xl font-bold text-sm md:text-base">  
+        <button onclick="closeEidi()" class="mt-5 md:mt-6 bg-yellow-400 text-black py-3 md:py-4 w-full rounded-xl md:rounded-2xl font-bold text-sm md:text-base">  
           Close  
         </button>  
       </div>  
@@ -328,6 +476,9 @@
 
   <!-- html2canvas -->    
   <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>    
+  <!-- canvas-confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
   <script>  
     /* Open Greeting */  
     function openGreeting(){  
@@ -337,25 +488,51 @@
         return;  
       }  
   
-      document.getElementById("greetingName").innerHTML = `Dear ${name},`;  
+      document.getElementById("greetingName").innerHTML = `DEAR ${name.toUpperCase()}`;  
+      
+      const moonWrapper = document.getElementById("moonWrapper");
+      moonWrapper.style.animation = "none"; 
+      moonWrapper.classList.add("fly-to-page2");   
+
       document.getElementById("page1").classList.add("slide-left");  
       document.getElementById("page2").classList.add("slide-center");  
+      
+      setTimeout(() => {
+        document.getElementById("audioBtn").classList.remove("hidden");
+        triggerNameExplosion();
+        document.getElementById("royalBadgeWrapper").classList.add("reveal-badge");
+      }, 550);
   
-      /* Show Audio Button */
-      document.getElementById("audioBtn").classList.remove("hidden");
-
-      /* Audio Play */  
       const audio = document.getElementById("eidAudio");  
-      audio.play().catch(error => {
-        console.log("Autoplay prevented");
-      });  
+      audio.play().catch(error => { console.log("Autoplay prevented"); });  
     }  
-  
+
+    /* Play Sheep Sound and Show Dream Bubble */
+    function playSheepEvent(element) {
+      const sheepAudio = document.getElementById("sheepAudio");
+      sheepAudio.currentTime = 0; 
+      sheepAudio.play().catch(err => console.log("Audio play blocked."));
+
+      const bubble = element.querySelector('.speech-bubble');
+      bubble.classList.add('show-bubble');
+
+      setTimeout(() => { bubble.classList.remove('show-bubble'); }, 1000);
+    }  
+
+    /* Custom Name Shahi Burst Effect */
+    function triggerNameExplosion() {
+      confetti({
+        particleCount: 100,
+        spread: 60,
+        origin: { x: 0.5, y: 0.35 },
+        colors: ['#facc15', '#eab308', '#ffffff', '#d4af37']
+      });
+    }
+
     /* Toggle Audio */
     function toggleAudio() {
       const audio = document.getElementById("eidAudio");
       const icon = document.getElementById("audioIcon");
-      
       if (audio.paused) {
         audio.play();
         icon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
@@ -369,28 +546,30 @@
     function shareGreeting(){  
       const text = "🌙 Eid Ul Adha Mubarak 🌙";  
       if(navigator.share){  
-        navigator.share({  
-          title:"Eid Mubarak",  
-          text:text,  
-          url:window.location.href  
-        });  
+        navigator.share({ title:"Eid Mubarak", text:text, url:window.location.href });  
       }else{  
         alert("Sharing not supported");  
       }  
     }  
   
-    /* Download Greeting (Fixed Background & Hidden Buttons) */  
+    /* Download Greeting */  
     function downloadGreeting(){  
       const card = document.getElementById("greetingCard");  
       const buttons = document.getElementById("actionButtons");
+      const moonWrapper = document.getElementById("moonWrapper");
       
-      // 1. امیج بننے سے پہلے عارضی طور پر بٹنز کو غائب کریں
       buttons.style.visibility = "hidden";
+      
+      const staticMoon = document.createElement("div");
+      staticMoon.innerText = "🌙";
+      staticMoon.style.fontSize = "3.5rem";
+      staticMoon.style.marginBottom = "0.5rem";
+      card.querySelector('.relative.z-10').prepend(staticMoon);
+      moonWrapper.style.visibility = "hidden"; 
 
-      // 2. html2canvas کو بتائیں کہ بیک گراؤنڈ کالا رینڈر کرے نہ کہ سفید
       html2canvas(card, {
-        backgroundColor: "#0d0d0d", // خوبصورت گہرا کالا رنگ
-        scale: 2, // ہائی کوالٹی امیج کے لیے
+        backgroundColor: "#0d0d0d", 
+        scale: 2, 
         useCORS: true,
         logging: false
       }).then(canvas => {  
@@ -399,24 +578,146 @@
         link.href = canvas.toDataURL("image/png");  
         link.click();  
         
-        // 3. امیج ڈاؤن لوڈ ہونے کے فوراً بعد بٹنز واپس شو کر دیں
+        staticMoon.remove();
+        moonWrapper.style.visibility = "visible";
         buttons.style.visibility = "visible";
       }).catch(err => {
+        staticMoon.remove();
+        moonWrapper.style.visibility = "visible";
         buttons.style.visibility = "visible";
-        alert("Error generating image");
       });  
     }  
   
-    /* Eidi */  
+    /* Eidi Scratch Card System Logic with Prank Lock */
+    let isScratching = false;
+    let canvas, ctx;
+    let confettiTriggered = false;
+    let isZeroAmount = false;
+    let isFirstTimeClick = true; // Tracking first click natively
+
     function openEidi(){  
-      const amounts = ["₹100", "₹200", "₹300", "₹500", "₹700", "₹1000"];  
-      const randomAmount = amounts[Math.floor(Math.random() * amounts.length)];  
-      document.getElementById("eidiAmount").innerHTML = randomAmount;  
+      const amountEl = document.getElementById("eidiAmount");
+      const msgEl = document.getElementById("eidiMessage");
+      const underlayer = document.getElementById("scratchUnderlayer");
+      
+      // Hidden keep to prevent text glitch flash
+      underlayer.style.opacity = "0";
+      
+      // 1. Agar pehli baar khul rha hai toh 100% Zero Prank aayega
+      if (isFirstTimeClick) {
+        isFirstTimeClick = false; // Agli baar ke liye rule change
+        isZeroAmount = true;
+        amountEl.innerHTML = "₹0";
+        msgEl.innerHTML = "Aap bade ho gaye hain,<br>ab Eidi dene ka waqt hai! 🥲";
+      } else {
+        // Agli baariyon mein randomly 50% change rule follow hoga
+        if (Math.random() < 0.50) {
+          isZeroAmount = true;
+          amountEl.innerHTML = "₹0";
+          msgEl.innerHTML = "Aap bade ho gaye hain,<br>ab Eidi dene ka waqt hai! 🥲";
+        } else {
+          isZeroAmount = false;
+          const amounts = ["₹100", "₹200", "₹300", "₹500", "₹700", "₹1000"];  
+          const randomAmount = amounts[Math.floor(Math.random() * amounts.length)];  
+          amountEl.innerHTML = randomAmount;
+          msgEl.innerHTML = "Mubarak 😄<br>Spend your Eidi wisely ✨";
+        }
+      }
+      
       document.getElementById("eidiPopup").classList.remove("hidden");  
+      confettiTriggered = false;
+      
+      setTimeout(() => {
+        setupScratchCard();
+      }, 40);
+    }  
+
+    function setupScratchCard() {
+      canvas = document.getElementById("scratchCanvas");
+      ctx = canvas.getContext("2d");
+      
+      const rect = canvas.parentNode.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      
+      ctx.fillStyle = "#2c2612"; 
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.fillStyle = "#d4af37"; 
+      ctx.font = "bold 14px 'Cinzel', serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("Scratch to reveal Eidi 🎁", canvas.width / 2, canvas.height / 2);
+      
+      // Reveal the underlayer safely now that cover canvas is perfectly ready
+      document.getElementById("scratchUnderlayer").style.opacity = "1";
+
+      canvas.addEventListener("mousedown", startScratch);
+      canvas.addEventListener("mousemove", scratchMove);
+      window.addEventListener("mouseup", stopScratch);
+      
+      canvas.addEventListener("touchstart", startScratch);
+      canvas.addEventListener("touchmove", scratchMove);
+      window.addEventListener("touchend", stopScratch);
+    }
+
+    function startScratch(e) { isScratching = true; scratch(e); }
+    function scratchMove(e) { if (!isScratching) return; e.preventDefault(); scratch(e); }
+    function stopScratch() { if (!isScratching) return; isScratching = false; checkScratchPercentage(); }
+
+    function scratch(e) {
+      const rect = canvas.getBoundingClientRect();
+      let x, y;
+      if (e.touches && e.touches.length > 0) {
+        x = e.touches[0].clientX - rect.left;
+        y = e.touches[0].clientY - rect.top;
+      } else {
+        x = e.clientX - rect.left;
+        y = e.clientY - rect.top;
+      }
+      
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.beginPath();
+      ctx.arc(x, y, 20, 0, Math.PI * 2); 
+      ctx.fill();
+    }
+
+    function checkScratchPercentage() {
+      if (confettiTriggered) return;
+      
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const pixels = imageData.data;
+      let clearPixels = 0;
+      
+      for (let i = 3; i < pixels.length; i += 4) {
+        if (pixels[i] === 0) clearPixels++;
+      }
+      
+      const totalPercentage = (clearPixels / (pixels.length / 4)) * 100;
+      
+      if (totalPercentage > 45) {
+        confettiTriggered = true;
+        canvas.style.transition = "opacity 0.4s ease";
+        canvas.style.opacity = "0";
+        
+        setTimeout(() => { if(canvas) canvas.remove(); }, 400);
+
+        if (!isZeroAmount) {
+          confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        }
+      }
     }  
   
     function closeEidi(){  
-      document.getElementById("eidiPopup").classList.add("hidden");  
+      document.getElementById("eidiPopup").classList.add("hidden");
+      const container = document.querySelector(".scratch-container");
+      container.innerHTML = `
+        <div id="scratchUnderlayer" class="scratch-underlayer">
+          <p id="eidiAmount" class="text-2xl md:text-4xl font-bold text-yellow-300 tracking-wide px-2 text-center leading-tight"></p>  
+          <p id="eidiMessage" class="mt-2 text-gray-300 leading-relaxed text-xs md:text-sm text-center"></p>
+        </div>
+        <canvas id="scratchCanvas" class="scratch-canvas"></canvas>
+      `;
     }  
   </script>  
 </body>  
