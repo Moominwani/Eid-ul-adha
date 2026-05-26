@@ -1,599 +1,423 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>Eid Ul Adha Mubarak</title>
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />  
+  <title>Eid Ul Adha Mubarak</title>    
+  <!-- Tailwind CSS -->    
+  <script src="https://cdn.tailwindcss.com"></script>    
+  <!-- Font -->    
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet">    
+  <style>  
+    *{  
+      margin:0;  
+      padding:0;  
+      box-sizing:border-box;  
+      transition:all .3s ease;  
+    }  
+  
+    html,body{  
+      width:100%;  
+      height:100%;  
+      overflow:hidden;  
+      font-family:'Cinzel', serif;  
+      background:black;  
+      color:white;  
+    }  
+  
+    body{  
+      position:fixed;  
+      inset:0;  
+    }  
+  
+    /* Background Glow */  
+    .bg-glow{  
+      position:absolute;  
+      width:600px;  
+      height:600px;  
+      background:rgba(250,204,21,0.08);  
+      border-radius:50%;  
+      filter:blur(120px);  
+      top:50%;  
+      left:50%;  
+      transform:translate(-50%,-50%);  
+      z-index:0;  
+    }  
+  
+    /* Stars */  
+    .stars span{  
+      position:absolute;  
+      width:2px;  
+      height:2px;  
+      background:white;  
+      border-radius:50%;  
+      animation:twinkle 4s infinite;  
+    }  
+  
+    @keyframes twinkle{  
+      0%,100%{ opacity:0.2; }  
+      50%{ opacity:1; }  
+    }  
+  
+    /* Pages */  
+    .page{  
+      position:absolute;  
+      inset:0;  
+      width:100%;  
+      height:100%;  
+      display:flex;  
+      justify-content:center;  
+      align-items:center;  
+      flex-direction:column;  
+      padding:12px;  
+      transition:1s ease;  
+    }  
+  
+    #page1{ transform:translateX(0%); }  
+    #page2{ transform:translateX(100%); overflow-y: auto; }  
+  
+    .slide-left{ transform:translateX(-100%) !important; }  
+    .slide-center{ transform:translateX(0%) !important; }  
+  
+    /* Moon */  
+    .moon{  
+      position:relative;  
+      width:120px;  
+      height:120px;  
+      border-radius:50%;  
+      background:#facc15;  
+      box-shadow:0 0 60px rgba(250,204,21,0.5);  
+      overflow:hidden;  
+      animation:float 5s ease-in-out infinite;  
+    }  
+  
+    @media (min-width: 768px) {  
+      .moon {  
+        width: 160px;  
+        height: 160px;  
+        box-shadow:0 0 80px rgba(250,204,21,0.5);  
+      }  
+    }  
+  
+    .moon::after{  
+      content:'';  
+      position:absolute;  
+      width:100%;  
+      height:100%;  
+      border-radius:50%;  
+      background:black;  
+      top:0;  
+      left:35px;  
+    }  
+  
+    @keyframes float{  
+      0%,100%{ transform:translateY(0px); }  
+      50%{ transform:translateY(-15px); }  
+    }  
+  
+    /* Glass */  
+    .glass{  
+      background:rgba(255,255,255,0.08);  
+      backdrop-filter:blur(20px);  
+      border:1px solid rgba(255,255,255,0.08);  
+      box-shadow:  
+      0 0 30px rgba(255,255,255,0.05),  
+      inset 0 0 20px rgba(255,255,255,0.03);  
+    }  
+  
+    /* Footer */  
+    footer{  
+      position:fixed;  
+      bottom:10px;  
+      left:50%;  
+      transform:translateX(-50%);  
+      width:100%;  
+      text-align:center;  
+      color:#9ca3af;  
+      font-size:11px;  
+      z-index:9999;  
+    }  
+  
+    @media (min-width: 768px) {  
+      footer { bottom: 15px; font-size: 14px; }  
+    }  
+  
+    /* Floating */  
+    .floating{ animation:floating 4s ease-in-out infinite; }  
+  
+    @keyframes floating{  
+      0%,100%{ transform:translateY(0px); }  
+      50%{ transform:translateY(-10px); }  
+    }  
+  
+    /* Sheep */  
+    .sheep{  
+      position:absolute;  
+      width:90px;  
+      z-index:2;  
+      pointer-events:none;  
+    }  
+  
+    .sheep1{  
+      bottom:90px;  
+      left:-120px;  
+      animation:walkSheep 8s linear infinite;  
+    }  
+  
+    .sheep2{  
+      bottom:150px;  
+      left:-200px;  
+      width:70px;  
+      animation:walkSheep 10s linear infinite;  
+      animation-delay:2s;  
+    }  
+  
+    @keyframes walkSheep{  
+      0%{ transform:translateX(0); }  
+      100%{ transform:translateX(160vw); }  
+    }  
+  
+    /* Buttons */  
+    button:hover{  
+      transform:scale(1.03);  
+      box-shadow:0 0 20px rgba(250,204,21,0.2);  
+    }  
+  
+    /* Popup */  
+    .popup-bg{  
+      background:rgba(0,0,0,0.7);  
+      backdrop-filter:blur(10px);  
+    }  
+  </style>  
+</head>  
+<body>    
+  <!-- Glow -->    
+  <div class="bg-glow"></div>    
+  
+  <!-- Stars -->    
+  <div class="stars">  
+    <span style="top:10%;left:15%;"></span>  
+    <span style="top:20%;left:80%;"></span>  
+    <span style="top:70%;left:25%;"></span>  
+    <span style="top:60%;left:70%;"></span>  
+    <span style="top:40%;left:50%;"></span>  
+    <span style="top:85%;left:90%;"></span>  
+    <span style="top:30%;left:10%;"></span>  
+    <span style="top:15%;left:55%;"></span>  
+  </div>    
+  
+  <!-- Sheep -->    
+  <img src="sheep.gif" class="sheep sheep1" alt="">  
+  <img src="sheep.gif" class="sheep sheep2" alt="">    
+  
+  <!-- Audio -->    
+  <audio id="eidAudio" loop>  
+    <source src="taqabbalallah.mp3" type="audio/mpeg">  
+  </audio>    
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      transition:all .3s ease;
-    }
-
-    html,body{
-      width:100%;
-      height:100%;
-      overflow:hidden;
-      font-family:'Cinzel', serif;
-      background:black;
-      color:white;
-    }
-
-    body{
-      position:fixed;
-      inset:0;
-    }
-
-    /* Background Glow */
-
-    .bg-glow{
-      position:absolute;
-      width:600px;
-      height:600px;
-      background:rgba(250,204,21,0.08);
-      border-radius:50%;
-      filter:blur(120px);
-      top:50%;
-      left:50%;
-      transform:translate(-50%,-50%);
-      z-index:0;
-    }
-
-    /* Stars */
-
-    .stars span{
-      position:absolute;
-      width:2px;
-      height:2px;
-      background:white;
-      border-radius:50%;
-      animation:twinkle 4s infinite;
-    }
-
-    @keyframes twinkle{
-      0%,100%{
-        opacity:0.2;
-      }
-      50%{
-        opacity:1;
-      }
-    }
-
-    /* Pages */
-
-    .page{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      flex-direction:column;
-      padding:12px; /* Reduced for mobile spacing */
-      transition:1s ease;
-    }
-
-    #page1{
-      transform:translateX(0%);
-    }
-
-    #page2{
-      transform:translateX(100%);
-      overflow-y: auto; /* Fallback scrolling for very small mobile screens */
-    }
-
-    .slide-left{
-      transform:translateX(-100%) !important;
-    }
-
-    .slide-center{
-      transform:translateX(0%) !important;
-    }
-
-    /* Moon */
-
-    .moon{
-      position:relative;
-      width:120px; /* Smaller moon on mobile */
-      height:120px;
-      border-radius:50%;
-      background:#facc15;
-      box-shadow:0 0 60px rgba(250,204,21,0.5);
-      overflow:hidden;
-      animation:float 5s ease-in-out infinite;
-    }
-
-    @media (min-width: 768px) {
-      .moon {
-        width: 160px;
-        height: 160px;
-        box-shadow:0 0 80px rgba(250,204,21,0.5);
-      }
-    }
-
-    .moon::after{
-      content:'';
-      position:absolute;
-      width:100%;
-      height:100%;
-      border-radius:50%;
-      background:black;
-      top:0;
-      left:35px;
-    }
-
-    @keyframes float{
-      0%,100%{
-        transform:translateY(0px);
-      }
-      50%{
-        transform:translateY(-15px);
-      }
-    }
-
-    /* Glass */
-
-    .glass{
-      background:rgba(255,255,255,0.08);
-      backdrop-filter:blur(20px);
-      border:1px solid rgba(255,255,255,0.08);
-      box-shadow:
-      0 0 30px rgba(255,255,255,0.05),
-      inset 0 0 20px rgba(255,255,255,0.03);
-    }
-
-    /* Footer */
-
-    footer{
-      position:fixed;
-      bottom:10px;
-      left:50%;
-      transform:translateX(-50%);
-      width:100%;
-      text-align:center;
-      color:#9ca3af;
-      font-size:11px; /* Slightly smaller for mobile footer */
-      z-index:9999;
-    }
-
-    @media (min-width: 768px) {
-      footer {
-        bottom: 15px;
-        font-size: 14px;
-      }
-    }
-
-    /* Floating */
-
-    .floating{
-      animation:floating 4s ease-in-out infinite;
-    }
-
-    @keyframes floating{
-      0%,100%{
-        transform:translateY(0px);
-      }
-      50%{
-        transform:translateY(-10px);
-      }
-    }
-
-    /* Sheep */
-
-    .sheep{
-      position:absolute;
-      width:90px;
-      z-index:2;
-      pointer-events:none;
-    }
-
-    .sheep1{
-      bottom:90px;
-      left:-120px;
-      animation:walkSheep 8s linear infinite;
-    }
-
-    .sheep2{
-      bottom:150px;
-      left:-200px;
-      width:70px;
-      animation:walkSheep 10s linear infinite;
-      animation-delay:2s;
-    }
-
-    @keyframes walkSheep{
-      0%{
-        transform:translateX(0);
-      }
-      100%{
-        transform:translateX(160vw);
-      }
-    }
-
-    /* Buttons */
-
-    button:hover{
-      transform:scale(1.03);
-      box-shadow:0 0 20px rgba(250,204,21,0.2);
-    }
-
-    /* Popup */
-
-    .popup-bg{
-      background:rgba(0,0,0,0.7);
-      backdrop-filter:blur(10px);
-    }
-
-  </style>
-</head>
-
-<body>
-
-  <!-- Glow -->
-  <div class="bg-glow"></div>
-
-  <!-- Stars -->
-  <div class="stars">
-    <span style="top:10%;left:15%;"></span>
-    <span style="top:20%;left:80%;"></span>
-    <span style="top:70%;left:25%;"></span>
-    <span style="top:60%;left:70%;"></span>
-    <span style="top:40%;left:50%;"></span>
-    <span style="top:85%;left:90%;"></span>
-    <span style="top:30%;left:10%;"></span>
-    <span style="top:15%;left:55%;"></span>
-  </div>
-
-  <!-- Sheep -->
-  <img src="sheep.gif" class="sheep sheep1" alt="">
-  <img src="sheep.gif" class="sheep sheep2" alt="">
-
-  <!-- Audio -->
-  <audio id="eidAudio" loop>
-    <source src="taqabbalallah.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- PAGE 1 -->
-
-  <section id="page1" class="page">
-
-    <div class="moon mb-6 md:mb-10"></div>
-
-    <h1 class="text-4xl md:text-7xl font-bold text-yellow-300 text-center px-4">
-      Eid Ul Adha Mubarak
-    </h1>
-
-    <p class="mt-4 md:mt-5 text-gray-300 text-center max-w-xl text-sm md:text-base leading-7 md:leading-8 px-4">
-      A beautiful cinematic Eid experience filled with
-      blessings, peace and happiness ✨
-    </p>
-
-    <div class="glass mt-8 md:mt-10 p-5 md:p-6 rounded-[24px] md:rounded-[30px] w-full max-w-sm md:max-w-md">
-
-      <input
-        type="text"
-        id="nameInput"
-        placeholder="Enter Your Name"
-        class="w-full bg-white/10 border border-yellow-400 rounded-xl md:rounded-2xl px-4 py-3 md:px-5 md:py-4 outline-none text-white placeholder-gray-300 text-sm md:text-base"
-      >
-
-      <button
-        onclick="openGreeting()"
-        class="w-full mt-4 md:mt-5 bg-yellow-400 text-black py-3 md:py-4 rounded-xl md:rounded-2xl text-base md:text-lg font-bold"
-      >
-        Continue
-      </button>
-
+  <!-- Fixed Audio Play/Pause Button -->
+  <button 
+    id="audioBtn"
+    onclick="toggleAudio()"
+    class="hidden fixed top-4 right-4 md:top-6 md:right-6 bg-black/40 border border-yellow-400/50 text-white rounded-full w-10 h-10 md:w-12 md:h-12 z-[10000] flex items-center justify-center backdrop-blur-md cursor-pointer active:scale-95"
+    title="Pause/Play Music"
+  >
+    <svg id="audioIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current text-yellow-300" viewBox="0 0 24 24">
+      <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+    </svg>
+  </button>
+  
+  <!-- PAGE 1 -->    
+  <section id="page1" class="page">  
+    <div class="moon mb-6 md:mb-10"></div>  
+    <h1 class="text-4xl md:text-7xl font-bold text-yellow-300 text-center px-4">  
+      Eid Ul Adha Mubarak  
+    </h1>  
+    <p class="mt-4 md:mt-5 text-gray-300 text-center max-w-xl text-sm md:text-base leading-7 md:leading-8 px-4">  
+      A beautiful cinematic Eid experience filled with blessings, peace and happiness ✨  
+    </p>  
+    <div class="glass mt-8 md:mt-10 p-5 md:p-6 rounded-[24px] md:rounded-[30px] w-full max-w-sm md:max-w-md">  
+      <input  
+        type="text"  
+        id="nameInput"  
+        placeholder="Enter Your Name"  
+        class="w-full bg-white/10 border border-yellow-400 rounded-xl md:rounded-2xl px-4 py-3 md:px-5 md:py-4 outline-none text-white placeholder-gray-300 text-sm md:text-base"  
+      >  
+      <button  
+        onclick="openGreeting()"  
+        class="w-full mt-4 md:mt-5 bg-yellow-400 text-black py-3 md:py-4 rounded-xl md:rounded-2xl text-base md:text-lg font-bold"  
+      >  
+        Continue  
+      </button>  
     </div>
+  </section>    
+  
+  <!-- PAGE 2 -->    
+  <section id="page2" class="page">  
+    <div id="greetingCard" class="glass p-5 md:p-14 rounded-[30px] md:rounded-[40px] max-w-3xl text-center relative overflow-hidden w-full">  
+      <div class="absolute inset-0 bg-yellow-400/5 blur-3xl"></div>  
 
-  </section>
+      <!-- Decorations (Will be excluded in download if needed) -->  
+      <div class="absolute top-3 left-3 md:top-5 md:left-5 text-xl md:text-3xl floating">🏮</div>  
+      <div class="absolute top-6 right-5 md:top-10 md:right-8 text-lg md:text-2xl floating">✨</div>  
+      <div class="absolute bottom-6 left-5 md:bottom-10 md:left-10 text-lg md:text-2xl floating">🌙</div>  
 
-  <!-- PAGE 2 -->
+      <!-- Main -->  
+      <div class="relative z-10">  
+        <div class="text-4xl md:text-7xl mb-3 md:mb-6 floating">🌙</div>  
+        <h1 class="text-2xl md:text-7xl text-yellow-300 font-bold">Eid Ul Adha Mubarak</h1>  
+        <div class="w-24 md:w-40 h-[2px] md:h-1 bg-yellow-400 mx-auto rounded-full mt-3 md:mt-6"></div>  
+        <h2 id="greetingName" class="mt-4 md:mt-10 text-lg md:text-4xl font-semibold"></h2>  
+        
+        <p class="mt-4 md:mt-10 text-gray-300 leading-6 md:leading-10 text-sm md:text-xl">  
+          Taqabbalallahu منا ومنكم 🤍  
+          <br class="hidden md:inline"><br class="hidden md:inline">  
+          May Allah accept your prayers, sacrifices and duas on this beautiful Eid.  
+          <br class="hidden md:inline"><br class="hidden md:inline">  
+          May your home be filled with peace, your heart with happiness, and your life with endless barakah, success and beautiful moments.  
+          <br class="hidden md:inline"><br class="hidden md:inline">  
+          Wishing you and your family a joyful and blessed Eid Ul Adha Mubarak ✨  
+        </p>  
 
-  <section id="page2" class="page">
+        <!-- Dua -->  
+        <div class="mt-4 md:mt-10 glass rounded-[18px] md:rounded-[30px] p-3 md:p-6">  
+          <p class="text-yellow-300 text-xs md:text-xl leading-relaxed md:leading-9">  
+            “May this Eid bring new hopes, unforgettable memories, and countless blessings into your life.”  
+          </p>  
+        </div>  
 
-    <div
-      id="greetingCard"
-      class="glass p-5 md:p-14 rounded-[30px] md:rounded-[40px] max-w-3xl text-center relative overflow-hidden w-full"
-    >
-
-      <div class="absolute inset-0 bg-yellow-400/5 blur-3xl"></div>
-
-      <!-- Decorations -->
-
-      <div class="absolute top-3 left-3 md:top-5 md:left-5 text-xl md:text-3xl floating">
-        🏮
-      </div>
-
-      <div class="absolute top-6 right-5 md:top-10 md:right-8 text-lg md:text-2xl floating">
-        ✨
-      </div>
-
-      <div class="absolute bottom-6 left-5 md:bottom-10 md:left-10 text-lg md:text-2xl floating">
-        🌙
-      </div>
-
-      <!-- Main -->
-
-      <div class="relative z-10">
-
-        <div class="text-4xl md:text-7xl mb-3 md:mb-6 floating">
-          🌙
-        </div>
-
-        <h1 class="text-2xl md:text-7xl text-yellow-300 font-bold">
-          Eid Ul Adha Mubarak
-        </h1>
-
-        <div class="w-24 md:w-40 h-[2px] md:h-1 bg-yellow-400 mx-auto rounded-full mt-3 md:mt-6"></div>
-
-        <h2
-          id="greetingName"
-          class="mt-4 md:mt-10 text-lg md:text-4xl font-semibold"
-        ></h2>
-
-        <p class="mt-4 md:mt-10 text-gray-300 leading-6 md:leading-10 text-sm md:text-xl">
-
-          Taqabbalallahu منا ومنكم 🤍
-
-          <br class="hidden md:inline"><br class="hidden md:inline">
-
-          May Allah accept your prayers,
-          sacrifices and duas on this beautiful Eid.
-
-          <br class="hidden md:inline"><br class="hidden md:inline">
-
-          May your home be filled with peace,
-          your heart with happiness,
-          and your life with endless barakah,
-          success and beautiful moments.
-
-          <br class="hidden md:inline"><br class="hidden md:inline">
-
-          Wishing you and your family
-          a joyful and blessed
-          Eid Ul Adha Mubarak ✨
-
-        </p>
-
-        <!-- Dua -->
-
-        <div class="mt-4 md:mt-10 glass rounded-[18px] md:rounded-[30px] p-3 md:p-6">
-
-          <p class="text-yellow-300 text-xs md:text-xl leading-relaxed md:leading-9">
-
-            “May this Eid bring new hopes,
-            unforgettable memories,
-            and countless blessings into your life.”
-
-          </p>
-
-        </div>
-
-        <!-- Optimized Small Responsive Buttons for Mobile and Desktop -->
-
-        <div class="grid grid-cols-3 gap-2 mt-6 md:mt-12 w-full">
-
-          <button
-            onclick="shareGreeting()"
-            class="bg-yellow-400 text-black py-2.5 md:py-4 px-1 rounded-xl md:rounded-2xl font-bold text-[10px] sm:text-xs md:text-base leading-tight flex items-center justify-center min-h-[44px]"
-          >
-            Share Greeting
-          </button>
-
-          <button
-            onclick="downloadGreeting()"
-            class="glass text-white py-2.5 md:py-4 px-1 rounded-xl md:rounded-2xl font-bold text-[10px] sm:text-xs md:text-base leading-tight flex items-center justify-center min-h-[44px]"
-          >
-            Download Greeting
-          </button>
-
-          <button
-            onclick="openEidi()"
-            class="bg-green-500 text-white py-2.5 md:py-4 px-1 rounded-xl md:rounded-2xl font-bold text-[10px] sm:text-xs md:text-base leading-tight flex items-center justify-center min-h-[44px]"
-          >
-            Receive Eidi 💸
-          </button>
-
-        </div>
-
-      </div>
-
+        <!-- Action Buttons Container -->  
+        <div id="actionButtons" class="grid grid-cols-3 gap-2 mt-6 md:mt-12 w-full">  
+          <button onclick="shareGreeting()" class="bg-yellow-400 text-black py-2.5 md:py-4 px-1 rounded-xl md:rounded-2xl font-bold text-[10px] sm:text-xs md:text-base leading-tight flex items-center justify-center min-h-[44px]">  
+            Share Greeting  
+          </button>  
+          <button onclick="downloadGreeting()" class="glass text-white py-2.5 md:py-4 px-1 rounded-xl md:rounded-2xl font-bold text-[10px] sm:text-xs md:text-base leading-tight flex items-center justify-center min-h-[44px]">  
+            Download Greeting  
+          </button>  
+          <button onclick="openEidi()" class="bg-green-500 text-white py-2.5 md:py-4 px-1 rounded-xl md:rounded-2xl font-bold text-[10px] sm:text-xs md:text-base leading-tight flex items-center justify-center min-h-[44px]">  
+            Receive Eidi 💸  
+          </button>  
+        </div>  
+      </div>  
     </div>
+  </section>    
 
-  </section>
+  <!-- Eidi Popup -->  
+  <div id="eidiPopup" class="hidden fixed inset-0 popup-bg flex justify-center items-center z-[9999] px-6">    
+    <div class="glass p-5 md:p-8 rounded-[24px] md:rounded-[35px] text-center max-w-xs md:max-w-md w-full relative overflow-hidden">  
+      <div class="absolute inset-0 bg-green-400/10 blur-3xl"></div>  
+      <div class="relative z-10">  
+        <div class="text-5xl md:text-7xl mb-3 md:mb-5 floating">💸</div>  
+        <h1 class="text-2xl md:text-4xl text-green-400 font-bold">Eidi Received!</h1>  
+        <p id="eidiAmount" class="mt-4 md:mt-6 text-3xl md:text-5xl font-bold text-yellow-300">₹500</p>  
+        <p class="mt-3 md:mt-6 text-gray-300 leading-relaxed text-sm md:text-base">  
+          Mubarak 😄<br>Spend your Eidi wisely ✨  
+        </p>  
+        <div class="mt-4 md:mt-6 glass rounded-xl p-3 md:p-4">  
+          <p class="text-yellow-300 text-sm md:text-lg">Eidi from Moomin 🤍</p>  
+        </div>  
+        <button onclick="closeEidi()" class="mt-6 md:mt-8 bg-yellow-400 text-black py-3 md:py-4 w-full rounded-xl md:rounded-2xl font-bold text-sm md:text-base">  
+          Close  
+        </button>  
+      </div>  
+    </div>  
+  </div>    
 
-  <!-- Eidi Popup (Optimized for Mobile Height) -->
+  <!-- Footer -->    
+  <footer>Designed with ❤️ by Moomin Wani</footer>    
 
-<div
-  id="eidiPopup"
-  class="hidden fixed inset-0 popup-bg flex justify-center items-center z-[9999] px-6"
->
+  <!-- html2canvas -->    
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>    
+  <script>  
+    /* Open Greeting */  
+    function openGreeting(){  
+      const name = document.getElementById("nameInput").value;  
+      if(name.trim() === ""){  
+        alert("Please enter your name");  
+        return;  
+      }  
+  
+      document.getElementById("greetingName").innerHTML = `Dear ${name},`;  
+      document.getElementById("page1").classList.add("slide-left");  
+      document.getElementById("page2").classList.add("slide-center");  
+  
+      /* Show Audio Button */
+      document.getElementById("audioBtn").classList.remove("hidden");
 
-  <div class="glass p-5 md:p-8 rounded-[24px] md:rounded-[35px] text-center max-w-xs md:max-w-md w-full relative overflow-hidden">
-
-    <!-- Glow -->
-    <div class="absolute inset-0 bg-green-400/10 blur-3xl"></div>
-
-    <div class="relative z-10">
-
-      <div class="text-5xl md:text-7xl mb-3 md:mb-5 floating">
-        💸
-      </div>
-
-      <h1 class="text-2xl md:text-4xl text-green-400 font-bold">
-        Eidi Received!
-      </h1>
-
-      <p
-        id="eidiAmount"
-        class="mt-4 md:mt-6 text-3xl md:text-5xl font-bold text-yellow-300"
-      >
-        ₹500
-      </p>
-
-      <p class="mt-3 md:mt-6 text-gray-300 leading-relaxed text-sm md:text-base">
-
-        Mubarak 😄<br>
-        Spend your Eidi wisely ✨
-
-      </p>
-
-      <!-- From Moomin -->
-
-      <div class="mt-4 md:mt-6 glass rounded-xl p-3 md:p-4">
-
-        <p class="text-yellow-300 text-sm md:text-lg">
-          Eidi from Moomin 🤍
-        </p>
-
-      </div>
-
-      <button
-        onclick="closeEidi()"
-        class="mt-6 md:mt-8 bg-yellow-400 text-black py-3 md:py-4 w-full rounded-xl md:rounded-2xl font-bold text-sm md:text-base"
-      >
-        Close
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-  <!-- Footer -->
-
-  <footer>
-    Designed with ❤️ by Moomin Wani
-  </footer>
-
-  <!-- html2canvas -->
-
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-
-  <script>
-
-    /* Open Greeting */
-
-    function openGreeting(){
-
-      const name =
-      document.getElementById("nameInput").value;
-
-      if(name.trim() === ""){
-        alert("Please enter your name");
-        return;
+      /* Audio Play */  
+      const audio = document.getElementById("eidAudio");  
+      audio.play().catch(error => {
+        console.log("Autoplay prevented");
+      });  
+    }  
+  
+    /* Toggle Audio */
+    function toggleAudio() {
+      const audio = document.getElementById("eidAudio");
+      const icon = document.getElementById("audioIcon");
+      
+      if (audio.paused) {
+        audio.play();
+        icon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
+      } else {
+        audio.pause();
+        icon.innerHTML = `<path d="M8 5v14l11-7z"/>`;
       }
-
-      document.getElementById("greetingName")
-      .innerHTML = `Dear ${name},`;
-
-      document.getElementById("page1")
-      .classList.add("slide-left");
-
-      document.getElementById("page2")
-      .classList.add("slide-center");
-
-      /* Audio */
-
-      const audio =
-      document.getElementById("eidAudio");
-
-      audio.play();
-
     }
 
-    /* Share */
+    /* Share */  
+    function shareGreeting(){  
+      const text = "🌙 Eid Ul Adha Mubarak 🌙";  
+      if(navigator.share){  
+        navigator.share({  
+          title:"Eid Mubarak",  
+          text:text,  
+          url:window.location.href  
+        });  
+      }else{  
+        alert("Sharing not supported");  
+      }  
+    }  
+  
+    /* Download Greeting (Fixed Background & Hidden Buttons) */  
+    function downloadGreeting(){  
+      const card = document.getElementById("greetingCard");  
+      const buttons = document.getElementById("actionButtons");
+      
+      // 1. امیج بننے سے پہلے عارضی طور پر بٹنز کو غائب کریں
+      buttons.style.visibility = "hidden";
 
-    function shareGreeting(){
-
-      const text =
-      "🌙 Eid Ul Adha Mubarak 🌙";
-
-      if(navigator.share){
-
-        navigator.share({
-          title:"Eid Mubarak",
-          text:text,
-          url:window.location.href
-        });
-
-      }else{
-
-        alert("Sharing not supported");
-
-      }
-
-    }
-
-    /* Download */
-
-    function downloadGreeting(){
-
-      const card =
-      document.getElementById("greetingCard");
-
-      html2canvas(card).then(canvas => {
-
-        const link =
-        document.createElement("a");
-
-        link.download =
-        "eid-greeting.png";
-
-        link.href =
-        canvas.toDataURL();
-
-        link.click();
-
-      });
-
-    }
-
-    /* Eidi */
-
-function openEidi(){
-
-  const amounts = [
-    "₹100",
-    "₹200",
-    "₹300",
-    "₹500",
-    "₹700",
-    "₹1000"
-  ];
-
-  const randomAmount =
-  amounts[Math.floor(Math.random() * amounts.length)];
-
-  document.getElementById("eidiAmount")
-  .innerHTML = randomAmount;
-
-  document.getElementById("eidiPopup")
-  .classList.remove("hidden");
-
-}
-
-    function closeEidi(){
-
-      document.getElementById("eidiPopup")
-      .classList.add("hidden");
-
-    }
-
-  </script>
-
-</body>
+      // 2. html2canvas کو بتائیں کہ بیک گراؤنڈ کالا رینڈر کرے نہ کہ سفید
+      html2canvas(card, {
+        backgroundColor: "#0d0d0d", // خوبصورت گہرا کالا رنگ
+        scale: 2, // ہائی کوالٹی امیج کے لیے
+        useCORS: true,
+        logging: false
+      }).then(canvas => {  
+        const link = document.createElement("a");  
+        link.download = "eid-greeting.png";  
+        link.href = canvas.toDataURL("image/png");  
+        link.click();  
+        
+        // 3. امیج ڈاؤن لوڈ ہونے کے فوراً بعد بٹنز واپس شو کر دیں
+        buttons.style.visibility = "visible";
+      }).catch(err => {
+        buttons.style.visibility = "visible";
+        alert("Error generating image");
+      });  
+    }  
+  
+    /* Eidi */  
+    function openEidi(){  
+      const amounts = ["₹100", "₹200", "₹300", "₹500", "₹700", "₹1000"];  
+      const randomAmount = amounts[Math.floor(Math.random() * amounts.length)];  
+      document.getElementById("eidiAmount").innerHTML = randomAmount;  
+      document.getElementById("eidiPopup").classList.remove("hidden");  
+    }  
+  
+    function closeEidi(){  
+      document.getElementById("eidiPopup").classList.add("hidden");  
+    }  
+  </script>  
+</body>  
 </html>
